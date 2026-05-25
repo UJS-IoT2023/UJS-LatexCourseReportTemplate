@@ -1,0 +1,29 @@
+# LaTeX compilation中间文件
+*.aux
+*.bbl
+*.blg
+*.idx
+*.ind
+*.lof
+*.lot
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.log
+*.nav
+*.snm
+*.synctex.gz
+*.vrb
+
+# 编译产物
+*.pdf
+*.ps
+*.dvi
+
+# BibTeX
+*.bib.bak
+
+# VS Code LaTeX Workshop
+.vscode/

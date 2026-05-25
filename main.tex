@@ -1,0 +1,46 @@
+% !TEX program = xelatex
+% 江苏大学课程小报告模板示例
+% 编译方式: xelatex -> xelatex -> xelatex (或 latexmk)
+
+\documentclass{coursereport}
+
+%% ============================================================================
+%% 封面信息设置
+%% ============================================================================
+
+\course{物联网安全技术}
+\reporttitle{对称加密技术在物联网领域的最新进展综述}
+\college{计算机科学与通信工程学院}
+\majorclass{物联网工程2303班}
+\author{张三}
+\studentid{3230611081}
+\advisor{李四}
+\date{2026 年 5 月}
+
+%% ============================================================================
+%% 文档开始
+%% ============================================================================
+
+\begin{document}
+
+% 生成封面（无页码）
+\makecover
+
+% 前置部分：目录等，使用罗马数字页码
+\frontmatter
+
+% 自动生成目录
+\tableofcontents
+
+% 正文部分：使用阿拉伯数字页码，从1开始
+\mainmatter
+
+% 引入各章节
+\input{chapters/chapter01}
+\input{chapters/chapter02}
+\input{chapters/chapter03}
+
+% 参考文献
+\bibliography{refs/references}
+
+\end{document}
