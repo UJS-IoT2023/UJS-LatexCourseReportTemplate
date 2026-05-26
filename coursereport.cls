@@ -51,6 +51,7 @@
 % 基础工具
 \RequirePackage{etoolbox}
 \RequirePackage{xparse}
+\RequirePackage{ulem}
 
 % 页面设置
 \RequirePackage{geometry}
@@ -413,9 +414,7 @@
       \vspace{1cm}
 
       % 题目区域
-      \begin{tabular}{ll}
-        {\zihao{3}\heiti 题\quad 目：} & \underline{\makebox[10cm][c]{\zihao{3}\bfseries\heiti \coursereport@value@title}}
-      \end{tabular}
+      {\zihao{3}\heiti 题目：\uline{\coursereport@value@title}}
       
       \vspace{2cm}
     \end{center}
