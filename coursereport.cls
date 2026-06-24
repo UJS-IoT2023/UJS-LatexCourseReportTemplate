@@ -380,64 +380,134 @@
   \coverinfolabel{#1}：\underline{\makebox[8cm]{\hfill #2\hfill}}\\[0.8cm]%
 }
 
+% 封面风格：默认居中式 (center)，可选左对齐并排式 (leftlogo)
+% 注意：不能用 \ifstrequal 比较 \coursereport@value@coverstyle 和字面量，
+% 因为 etoolbox 的 \ifstrequal 在 \edef 内部用 \detokenize 处理参数，
+% \detokenize 不会展开宏，只把宏名 detokenize 成字符串，所以比较会失败。
+% 改用 \ifx 比较两个都展开为相同字面量的宏，更可靠。
+\def\coursereport@value@coverstyle{center}
+\def\coursereport@coverstyle@center{center}
+\def\coursereport@coverstyle@leftlogo{leftlogo}
+\newcommand{\coverstyle}[1]{\def\coursereport@value@coverstyle{#1}}
+
 % 生成封面
 \newcommand{\makecover}{%
   \begin{titlepage}
     \thispagestyle{emptypage}
-    \begin{center}
 
-      % 校名图片
-      \IfFileExists{assets/title.png}{%
-        \includegraphics[width=15cm]{assets/title.png}\\[0.3cm]
-      }{%
-        {\zihao{1}\bfseries\heiti 江\quad 苏\quad 大\quad 学}\\[0.3cm]
-      }
+    \ifx\coursereport@value@coverstyle\coursereport@coverstyle@leftlogo
+      %% ==========================================
+      %% 风格一：左徽标+右Title（等高并排，英文托底）
+      %% ==========================================
 
-      % JIANGSU UNIVERSITY
-      {\fontsize{24pt}{22pt}\selectfont\bfseries
-        \underline{J\ I\ A\ N\ G\ S\ U\quad\quad U\ N\ I\ V\ E\ R\ S\ I\ T\ Y}%
-      }
+      \noindent
+      \begin{minipage}[b]{0.18\textwidth}
+        % 左侧校徽：底部对齐，宽度占满小栏
+        \includegraphics[width=3cm]{assets/logo.png}
+      \end{minipage}
+      \hspace{1cm}
+      \begin{minipage}[b]{0.6\textwidth}
+        \centering
+        % \flushright
+        \includegraphics[height=3cm, keepaspectratio]{assets/title.png}
+      \end{minipage}
 
-      \vspace{1.5cm}
+      % 下方的英文托底：用一个独立的 center 环境紧跟其后，加下划线
+      \begin{center}
+        % \vspace{0.1cm} % 控制英文与上方图片的紧凑间距
+        {\fontsize{20pt}{36pt}\selectfont\bfseries
+          \underline{J\ I\ A\ N\ G\ S\ U\quad\quad U\ N\ I\ V\ E\ R\ S\ I\ T\ Y}%
+        }
+      \end{center}
 
-      % 课程名称和报告类型
-      {\zihao{2}\bfseries\heiti
-        \coursereport@value@course}
+      % 课程报告名称（紧跟英文）
+      \begin{center}
+        {\zihao{2}\bfseries\songti \coursereport@value@course}
+      \end{center}
 
-      \vspace{1cm}
-
-      % 学校Logo（使用assets文件夹）
-      \IfFileExists{assets/logo.png}{%
-        \includegraphics[height=3cm]{assets/logo.png}
-      }{}
-
-      \vspace{1cm}
+      \vspace{0.6cm} % 课程名与题目的间距
 
       % 题目区域
-      {\zihao{3}\heiti 题目：\uline{\coursereport@value@title}}
-      
-      \vspace{2cm}
-    \end{center}
+      \begin{center}
+        {\zihao{3}\bfseries\heiti \uline{\coursereport@value@title}}
+      \end{center}
 
-    % 信息区域
-    \begin{center}
-      {\zihao{4}\songti
-        \coverinfoitem{学院名称}{\coursereport@value@college}
-        \coverinfoitem{专业班级}{\coursereport@value@majorclass}
-        \coverinfoitem{姓\quad\quad 名}{\coursereport@value@author}
-        \coverinfoitem{学\quad\quad 号}{\coursereport@value@studentid}
-        \coverinfoitem{指导教师}{\coursereport@value@advisor}
-      }
-    \end{center}
+      % 中间留出大段空白
+      \vspace{5.5cm}
 
-    \vfill
+      % 下方详细信息
+      \begin{center}
+        {\zihao{4}\songti
+          \coverinfoitem{学院名称}{\coursereport@value@college}
+          \coverinfoitem{专业班级}{\coursereport@value@majorclass}
+          \coverinfoitem{姓\quad\quad 名}{\coursereport@value@author}
+          \coverinfoitem{学\quad\quad 号}{\coursereport@value@studentid}
+          \coverinfoitem{指导教师}{\coursereport@value@advisor}
+        }
+      \end{center}
 
-    % 日期
-    \begin{center}
-      {\zihao{4}\songti \coursereport@value@date}
-    \end{center}
+      \vfill
+      \begin{center}
+        {\zihao{4}\songti \coursereport@value@date}
+      \end{center}
 
-    \vspace{1cm}
+    \else
+      %% ==========================================
+      %% 风格二：默认居中风格（图二效果）
+      %% ==========================================
+      \begin{center}
+        % 校名图片
+        \IfFileExists{assets/title.png}{%
+          \includegraphics[width=15cm]{assets/title.png}\\[0.3cm]
+        }{%
+          {\zihao{1}\bfseries\heiti 江\quad 苏\quad 大\quad 学}\\[0.3cm]
+        }
+
+        % JIANGSU UNIVERSITY
+        {\fontsize{24pt}{22pt}\selectfont\bfseries
+          \underline{J\ I\ A\ N\ G\ S\ U\quad\quad U\ N\ I\ V\ E\ R\ S\ I\ T\ Y}%
+        }
+
+        \vspace{1.5cm}
+
+        % 课程名称
+        {\zihao{2}\bfseries\heiti \coursereport@value@course}
+
+        \vspace{1cm}
+
+        % 学校Logo
+        \IfFileExists{assets/logo.png}{%
+          \includegraphics[height=4.2cm]{assets/logo.png}
+        }{}
+
+        \vspace{1cm}
+
+        % 题目区域
+        {\zihao{3}\heiti 题目：\uline{\coursereport@value@title}}
+
+        \vspace{2cm}
+      \end{center}
+
+      % 信息区域
+      \begin{center}
+        {\zihao{4}\songti
+          \coverinfoitem{学院名称}{\coursereport@value@college}
+          \coverinfoitem{专业班级}{\coursereport@value@majorclass}
+          \coverinfoitem{姓\quad\quad 名}{\coursereport@value@author}
+          \coverinfoitem{学\quad\quad 号}{\coursereport@value@studentid}
+          \coverinfoitem{指导教师}{\coursereport@value@advisor}
+        }
+      \end{center}
+
+      \vfill
+
+      % 日期
+      \begin{center}
+        {\zihao{4}\songti \coursereport@value@date}
+      \end{center}
+
+      \vspace{1cm}
+    \fi
   \end{titlepage}
   \clearpage
 }
