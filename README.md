@@ -4,14 +4,14 @@
 
 本模板按照江苏大学课程小报告的格式要求制作，包括封面、目录、正文、图表、参考文献等所有格式规范。**在使用本模板前请务必与老师沟通，是否可以接受 LaTex 排版。**
 
-![image.png](https://minio.arorms.cn/notes/20260526002221_image.png)
+![image.png](docs/image.png)
 
 ## 格式要求对照
 
 | 要求项 | 模板实现 |
 |--------|----------|
 | 页边距：左/上2.5cm，右/下2cm | `geometry` 精确设置 |
-| 正文：小四宋体/Times New Roman，固定行距22磅 | `SimSun` + `Times New Roman`，`\baselineskip=22pt` |
+| 正文：小四宋体/Times New Roman，固定行距22磅 | `SimSun` + `Times New Roman`，`\linespread=1.52778` |
 | 首行缩进两字符 | `\parindent=2\ccwd` |
 | 一级标题：小三号黑体居中 | `\ctexset{chapter/format}` |
 | 二级标题：四号黑体靠左 | `\ctexset{section/format}` |
@@ -24,6 +24,8 @@
 | 图标题在下方，表标题在上方 | `position=below/above` |
 | 编号：图1.1、表1.1 | `\thechapter.\arabic{figure}` |
 | 禁止页面下方大块留白 | `\raggedbottom` + 浮动体参数优化 |
+
+**由于字体原因，可能导致 Linux 系统无法编译，解决方案参考 [LinuxFontsFix](docs/LinuxFontsFix.md)。**
 
 ## 文件结构
 
